@@ -1,16 +1,19 @@
 pipeline {
     agent { label 'ecsagent' }
     stages {
-        stage('build') {
+        stage('Build') {
             steps {
-                echo 'Compile the java source code'
-                sh 'javac Hello.java'
+                sh '''
+                'yum install git -y'
+                'git clone https://github.com/muharremkacan/jenkins-master-ecs-slave.git'
+                'javac hello.java'
+                '''
             }
         }
-        stage('execute') {
+        stage('Execute') {
             steps {
                 echo 'Run the compiled java code'
-                sh 'java Hello'
+                sh 'java hello'
             }
         }
     }
